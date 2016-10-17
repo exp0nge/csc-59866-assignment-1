@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 from urllib2 import urlopen
-from BeautifulSoup import BeautifulSoup
+from beautifulsoup4 import BeautifulSoup
 
 
 # Search query paths
