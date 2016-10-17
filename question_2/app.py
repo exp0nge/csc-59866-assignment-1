@@ -8,6 +8,7 @@ google_search_url = "https://www.google.com/#q="
 bing_search_url = "http://www.bing.com/search?q="
 duckduck_go_search_url = "http://www.bing.com/search?q="
 
+
 app = Flask(__name__)
 
 
@@ -20,18 +21,28 @@ def index():
 def query():
     if request.method == 'POST':
         search_query = request.form['query']
+        get_google_data(google_search_url + search_query)
+        get_bing_data(bing_search_url + search_query)
+        get_duck_data(duckduck_go_search_url + search_query)
 
 
 def get_google_data(url):
-    pass
+    data = urlopen(url)
+    soup = BeautifulSoup(data)
+    return soup
 
 
 def get_bing_data(url):
-    pass
+    data = urlopen(url)
+    soup = BeautifulSoup(data)
+    return soup
 
 
 def get_duck_data(url):
-    pass
+    data = urlopen(url)
+    soup = BeautifulSoup(data)
+    return soup
+
 
 if __name__ == '__main__':
     app.run(debug=True)
