@@ -83,6 +83,6 @@ if __name__ == '__main__':
 				raise ValueError("Position should be %i, got %i" % (row * N + col, position))
 				
 	# test for elements not in matrix
-	for r in range(N + 1, N + 100):
+	for r in range(m[N-1][N-1] + 1, m[N-1][N-1] + 100):
 		if matrix_binary_search(m, r) is not None:
 			raise ValueError("Searched for %i which should not exist in the matrix" % r)
