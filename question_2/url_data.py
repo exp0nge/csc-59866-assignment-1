@@ -21,7 +21,7 @@ def get_search_engine_content(url, do_write=False, path=None):
     return BeautifulSoup(data).prettify(encoding='utf-8')
 
 
-def get_search_results(samples):
+def get_search_results(soup, samples):
     """
     Returns the first x results
     :param samples: int

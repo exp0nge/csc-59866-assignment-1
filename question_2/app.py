@@ -1,8 +1,6 @@
 from flask import Flask, render_template, request
-from requests import get
 from fake_useragent import UserAgent
-from urllib2 import urlopen
-from bs4 import BeautifulSoup
+
 
 # Search query paths
 google_search_url = "https://www.google.com/#q="
