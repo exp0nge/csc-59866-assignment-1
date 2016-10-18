@@ -1,12 +1,17 @@
 from flask import Flask, render_template, request
+from requests import get
+from fake_useragent import UserAgent
 from urllib2 import urlopen
-from beautifulsoup4 import BeautifulSoup
-
+from bs4 import BeautifulSoup
 
 # Search query paths
 google_search_url = "https://www.google.com/#q="
 bing_search_url = "http://www.bing.com/search?q="
 duckduck_go_search_url = "http://www.bing.com/search?q="
+
+user_agent = UserAgent()
+user_chrome = { 'User-Agent': user_agent.chrome }
+headers  = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
 
 app = Flask(__name__)
@@ -21,27 +26,6 @@ def index():
 def query():
     if request.method == 'POST':
         search_query = request.form['query']
-        get_google_data(google_search_url + search_query)
-        get_bing_data(bing_search_url + search_query)
-        get_duck_data(duckduck_go_search_url + search_query)
-
-
-def get_google_data(url):
-    data = urlopen(url)
-    soup = BeautifulSoup(data)
-    return soup
-
-
-def get_bing_data(url):
-    data = urlopen(url)
-    soup = BeautifulSoup(data)
-    return soup
-
-
-def get_duck_data(url):
-    data = urlopen(url)
-    soup = BeautifulSoup(data)
-    return soup
 
 
 if __name__ == '__main__':
