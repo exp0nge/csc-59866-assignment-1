@@ -35,6 +35,9 @@ def binary_search(a, target):
 def matrix_binary_search(m, target):
 	"""
 	Returns the position of target if exists, else returns None
+	
+	Runs in O(logN) where N is the dimension of the square matrix.
+	There are two binary searches that are used.
 	"""
 	size = len(m)
 	last_col = size - 1
@@ -42,8 +45,9 @@ def matrix_binary_search(m, target):
 	start, end = 0, last_col
 	
 	while start != end:
-		# figure out what row to look at using modified version of 
-		# binary search
+		# figure out what row to look at using 
+		# modified version of  binary search
+		
 		# mid is now the mid row
 		mid = abs(start + end)/2
 		if m[mid][0] <= target <= m[mid][last_col]:
