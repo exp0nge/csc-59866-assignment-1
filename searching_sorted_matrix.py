@@ -33,30 +33,36 @@ def binary_search(a, target):
 	return start if a[start] == target else None
 	
 def matrix_binary_search(m, target):
-	# first search m[0][0]
-	row = None
-	last_col = len(m) - 1
-	for i in range(0, len(m)):
-		val = m[i][last_col]
-		if val == target:
-			print 'val=target', i, len(m)
-			if i == 0:
-				return i + len(m) - 1
-			else:
-				return i + len(m)
-		elif target < val:
-			row = i
+	"""
+	
+	"""
+	size = len(m)
+	last_col = size - 1
+	
+	start, end = 0, last_col
+	
+	while start != end:
+		# figure out what row to look at using modified version of 
+		# binary search
+		# mid is now the mid row
+		mid = abs(start + end)/2
+		if m[mid][0] <= target <= m[mid][last_col]:
+			# we've found our row
 			break
+		elif m[mid][0] > target:
+			# need to look at previous half
+			start, end = 0, mid - 1
+		elif m[mid][last_col] < target:
+			# look at bottom half
+			start, end = mid + 1, last_col
+	if start == end:
+		mid = start
 
-	if row is None:
+	position = binary_search(m[mid], target)
+	if position is None:
 		return None
 	else:
-		position = binary_search(m[row], target)
-		
-		if position is not None:
-			return (row * len(m)) + position
-		else:
-			return None	
+		return position + size * mid
 	
 	
 if __name__ == '__main__':
@@ -68,7 +74,10 @@ if __name__ == '__main__':
 	"""
 	m = [[1,2,3,4], [5,6,7,8], [9,10,11,12], [13,14,15,16]]
 	N = len(m)
+	# test case
 	for row in range(0, N):
 		for col in range(0, N):
 			position = matrix_binary_search(m, m[row][col])
-			print m[row][col], position, row, col
+
+			if position != row * N + col:
+				raise ValueError("Position should be %i, got %i" % (row * N + col, position))
