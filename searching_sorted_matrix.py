@@ -34,7 +34,7 @@ def binary_search(a, target):
 	
 def matrix_binary_search(m, target):
 	"""
-	
+	Returns the position of target if exists, else returns None
 	"""
 	size = len(m)
 	last_col = size - 1
@@ -81,3 +81,8 @@ if __name__ == '__main__':
 
 			if position != row * N + col:
 				raise ValueError("Position should be %i, got %i" % (row * N + col, position))
+				
+	# test for elements not in matrix
+	for r in range(N + 1, N + 100):
+		if matrix_binary_search(m, r) is not None:
+			raise ValueError("Searched for %i which should not exist in the matrix" % r)
