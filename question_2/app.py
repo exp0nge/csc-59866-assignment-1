@@ -9,7 +9,7 @@ duckduck_go_search_url = "http://www.bing.com/search?q="
 
 user_agent = UserAgent()
 user_chrome = { 'User-Agent': user_agent.chrome }
-headers  = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
 
 
 app = Flask(__name__)

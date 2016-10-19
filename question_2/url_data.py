@@ -3,7 +3,7 @@ from fake_useragent import UserAgent
 from bs4 import BeautifulSoup
 
 user_agent = UserAgent(cache=True)
-chrome_user = { 'User-Agent': user_agent.chrome }
+chrome_user = {'User-Agent': user_agent.chrome}
 
 
 def get_search_engine_content(url, do_write=False, path=None):
@@ -14,7 +14,7 @@ def get_search_engine_content(url, do_write=False, path=None):
     :param path:
     :return:
     """
-    data = get(url, headers = user_agent)
+    data = get(url, headers=user_agent)
     if do_write:
         with open(path) as output:
             output.write("%s" % data.text.encode('utf-8'))
@@ -24,8 +24,8 @@ def get_search_engine_content(url, do_write=False, path=None):
 def get_search_results(soup, samples):
     """
     Returns the first x results
+    :param soup: BeautifulSoup
     :param samples: int
     :return: string
     """
     pass
-
