@@ -74,8 +74,6 @@ def get_ask_search_results(soup):
 
 def get_yahoo_search_results(soup):
     final_results = []
-    with open("yahoo.html", "w") as output:
-        output.write(soup.prettify(encoding='utf-8'))
     yahoo_search = soup.find(id='bd')
     yahoo_results = yahoo_search.find(id='results')
     columns = yahoo_results.find(id='cols')
@@ -83,8 +81,11 @@ def get_yahoo_search_results(soup):
     left_result = left.find('div')
     main = left_result.find(id='main').find('div').find(id='web').find('ol').find_all('li')
     for li in main:
-        link = li.findChildren('a')[0]
-        a = (link['href'], link.get_text())
-        final_results.append(a)
+        try:
+            link = li.findChildren('a')[0]
+            a = (link['href'], link.get_text())
+            final_results.append(a)
+        except (IndexError):
+            continue
 
     return final_results
