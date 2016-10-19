@@ -29,16 +29,24 @@ def get_bing_search_results(soup, samples):
     :param samples: int
     :return: string
     """
+    urls = []
+    captions = []
+    results = []
     ul = soup.find_all(id='b_results')
     for item in ul:
         for h in item.find_all('h2'):
             a = h.find('a')
             if a is not None:
                 url_text = (a['href'], a.get_text())
+                urls.append(url_text)
                 print url_text
         for caption in item.find_all('div', { 'class': 'b_caption'}):
             summary = caption.find('p')
+            captions.append(summary)
             print summary
+
+    for url, caption in urls, captions:
+        results.append((url, caption))
 
 
 def get_ask_search_results(soup):
@@ -66,7 +74,9 @@ def get_yahoo_search_results(soup):
     left = columns.find(id='left')
     left_result = left.find('div')
     main = left_result.find(id='main').find('div').find(id='web').find('ol').find_all('li')
-
+    print len(main)
     for li in main:
-        div = li.find('div').find('div').find('div')
-        print div
+        link = li.findChildren('a')[0]
+        print (link['href'], link.get_text())
+        text = li.findChildren('p')[0]
+
