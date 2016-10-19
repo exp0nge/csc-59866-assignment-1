@@ -1,15 +1,9 @@
 from flask import Flask, render_template, request
-from fake_useragent import UserAgent
-
+from url_data import get_search_engine_content, get_ask_search_results
 
 # Search query paths
-google_search_url = "https://www.google.com/#q="
 bing_search_url = "http://www.bing.com/search?q="
-duckduck_go_search_url = "http://www.bing.com/search?q="
-
-user_agent = UserAgent()
-user_chrome = { 'User-Agent': user_agent.chrome }
-headers = {'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
+ask_search_url = "http://www.ask.com/web?q=query"
 
 
 app = Flask(__name__)
@@ -24,6 +18,9 @@ def index():
 def query():
     if request.method == 'POST':
         search_query = request.form['query']
+        # bing_data = get_search_engine_content(bing_search_url + search_query)
+        ask_data = get_search_engine_content(ask_search_url + search_query)
+        get_ask_search_results(ask_data)
 
 
 if __name__ == '__main__':
