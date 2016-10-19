@@ -19,7 +19,7 @@ def binary_search(a, target):
 	size = len(a)
 	start, end = 0, size - 1
 	
-	while start != end:
+	while start < end:
 		mid = abs(start + end)/2
 		
 		if a[mid] == target:
@@ -44,7 +44,7 @@ def matrix_binary_search(m, target):
 	
 	start, end = 0, last_col
 	
-	while start != end:
+	while start <= end:
 		# figure out what row to look at using 
 		# modified version of  binary search
 		
@@ -59,8 +59,6 @@ def matrix_binary_search(m, target):
 		elif m[mid][last_col] < target:
 			# look at bottom half
 			start, end = mid + 1, last_col
-	if start == end:
-		mid = start
 
 	position = binary_search(m[mid], target)
 	if position is None:
@@ -81,10 +79,13 @@ if __name__ == '__main__':
 	# test case
 	for row in range(0, N):
 		for col in range(0, N):
+			print "Searching %i element" % (row * N + col)
 			position = matrix_binary_search(m, m[row][col])
 
 			if position != row * N + col:
 				raise ValueError("Position should be %i, got %i" % (row * N + col, position))
+			else:
+				print "Search returned %i position" % position
 				
 	# test for elements not in matrix
 	for r in range(m[N-1][N-1] + 1, m[N-1][N-1] + 100):
