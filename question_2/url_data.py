@@ -39,13 +39,11 @@ def get_bing_search_results(soup):
             if a is not None:
                 url_text = (a['href'], a.get_text())
                 urls.append(url_text)
-                print url_text
         for caption in item.find_all('div', { 'class': 'b_caption'}):
             summary = caption.find('p')
             captions.append(summary)
-            print summary
 
-    for url, caption in urls, captions:
+    for url, caption in zip(urls, captions):
         results.append((url, caption))
 
     return results
@@ -65,19 +63,16 @@ def get_ask_search_results(soup):
                 if a is not None:
                     url = (a['href'], a.get_text())
                     urls.append(url)
-                    print url
             summary = item.find('p', {'class': 'web-result-description'})
             captions.append(summary)
 
-    for url, caption in final_results:
-        final_results.append((url, caption))
+    for link, caption in zip(urls, captions):
+        final_results.append((link, caption))
 
-    return final_results
+    return urls
 
 
 def get_yahoo_search_results(soup):
-    urls = []
-    captions = []
     final_results = []
     with open("yahoo.html", "w") as output:
         output.write(soup.prettify(encoding='utf-8'))
@@ -87,10 +82,9 @@ def get_yahoo_search_results(soup):
     left = columns.find(id='left')
     left_result = left.find('div')
     main = left_result.find(id='main').find('div').find(id='web').find('ol').find_all('li')
-    print len(main)
     for li in main:
         link = li.findChildren('a')[0]
         a = (link['href'], link.get_text())
-        text = li.findChildren('p')[0]
-        final_results.append((a, text))
+        final_results.append(a)
 
+    return final_results
