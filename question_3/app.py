@@ -26,8 +26,8 @@ def query():
         yahoo_data = get_search_engine_content(yahoo_search_url + search_query)
         yahoo_results = get_yahoo_search_results(yahoo_data)
 
-        return redirect('/results')
-        # return render_template("results.html", result_1=bing_result, result_2=ask_result, result_3=yahoo_results)
+        # return redirect('/results')
+        return render_template("results.html", result_1=bing_result, result_2=ask_result, result_3=yahoo_results)
 
 
 @app.route('/results')
