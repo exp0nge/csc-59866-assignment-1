@@ -4,6 +4,7 @@ from url_data import get_search_engine_content, get_ask_search_results
 # Search query paths
 bing_search_url = "http://www.bing.com/search?q="
 ask_search_url = "http://www.ask.com/web?q=query"
+yahoo_search_url = "https://search.yahoo.com/search;?p="
 
 
 app = Flask(__name__)
@@ -19,8 +20,9 @@ def query():
     if request.method == 'POST':
         search_query = request.form['query']
         # bing_data = get_search_engine_content(bing_search_url + search_query)
-        ask_data = get_search_engine_content(ask_search_url + search_query)
-        get_ask_search_results(ask_data)
+        # ask_data = get_search_engine_content(ask_search_url + search_query)
+        # get_ask_search_results(ask_data)
+        pass
 
 
 if __name__ == '__main__':

@@ -42,8 +42,6 @@ def get_bing_search_results(soup, samples):
 
 
 def get_ask_search_results(soup):
-    with open('ask.html', 'w') as output:
-        output.write(soup.prettify(encoding='utf-8'))
     ul = soup.find_all('div', {'class':'l-mid-content hcsa'})
     results = ul[0].find('div', {'class': 'l-web-results web-results content-mid'})
     for item in results:
@@ -59,4 +57,5 @@ def get_ask_search_results(soup):
                 print summary
 
 
-
+def get_yahoo_search_results(soup):
+    pass
