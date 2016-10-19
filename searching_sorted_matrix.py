@@ -9,6 +9,7 @@ otherwise. Analyze the time complexity of your algorithm
 [ 1, 2, 3, 4 ]
 [ 5, 6, 7, 8 ]
 [ 9, 10, 11, 12 ]
+[ 13, 14, 15, 16 ]
 
 target = 6
 binary search A[0][0] until value >= target (index T)
