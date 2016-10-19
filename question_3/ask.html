@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<!--[if IE 7 ]> <html lang='en' class='ie7'> <![endif]-->
+<!--[if IE 8 ]> <html lang='en' class='ie8'> <![endif]-->
+<!--[if IE 9 ]> <html lang='en' class='ie9'> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!-->
+<html lang="en">
+ <!--<![endif]-->
+ <head>
+  <title>
+   Ask.com - What's Your Question?
+  </title>
+  <script type="text/javascript">
+   var ss=function(){},cs=function(){};
+var _docReadyFns = [];
+$j = function(){return {ready:function(fn){_docReadyFns.push(fn);}};};
+window.onload = function() {
+for (var i = 0; i < _docReadyFns.length; i++) {
+var fn = _docReadyFns[i];
+if (typeof fn === 'function') fn.call(document, jQuery);
+}
+};
+var JASK = JASK || {};
+JASK.cfg = (function() {
+return {
+"ldomain":"www.ask.com" ,
+"_ldomain":"www.ask.com",
+"disableSearchBoxFocus":true,
+"appendSearchQuery":true,
+"fixedRR":false,
+"displayAdBelowFold":true,
+"landingPageVersion":"askV2",
+"sbFocusColor":"#a8d4f5",
+"fixedHeaderScroll":false,
+"baseImprovement":false,
+"flyoverDelay":"500"
+};
+})();
+  </script>
+  <script type="text/javascript">
+  </script>
+  <link href="//www.ask.com/favicon.ico" rel="shortcut icon">
+   <link href="//www.ask.com/ask-search.xml" rel="search" title="Ask Search" type="application/opensearchdescription+xml">
+    <link href="//www.ask.com/apple-touch-icon.png" rel="apple-touch-icon">
+     <link href="//www.ask.com/apple-touch-icon-76x76.png" rel="apple-touch-icon" sizes="76x76">
+      <link href="//www.ask.com/apple-touch-icon-120x120.png" rel="apple-touch-icon" sizes="120x120">
+       <link href="//www.ask.com/apple-touch-icon-152x152.png" rel="apple-touch-icon" sizes="152x152">
+        <link href="//www.ask.com/apple-touch-icon-180x180.png" rel="apple-touch-icon" sizes="180x180">
+         <meta content="noindex, nofollow" name="robots">
+          <script charset="utf-8" type="text/javascript">
+           (function(G,o,O,g,L,e){G[g]=G[g]||function(){(G[g]['q']=G[g]['q']||[]).push( arguments)},G[g]['t']=1*new Date;L=o.createElement(O),e=o.getElementsByTagName( O)[0];L.async=1;L.src='//www.google.com/adsense/search/async-ads.js'; e.parentNode.insertBefore(L,e)})(window,document,'script','_googCsa');
+          </script>
+          <script charset="utf-8" type="text/javascript">
+           var ask = (typeof ask === 'undefined') ? {} : ask;
+ask.CSA = {};
+(function(){
+var _logInConsole = false,
+_csaStartTime = new Date(), _csaResponseTime = null,
+_domReady = false,
+_showSerpTimeoutCleared = false,
+_showSerpTimeoutLength = 2000,
+_showSerpTimer = null,
+_log = function(){
+if(('false' === 'true') && window.console && console.log) {
+console.log(Array.prototype.slice.call(arguments));
+}
+},
+_domCallbacks = [],
+_csaCallbacksObjects = [];
+ask.CSA.startTime = _csaStartTime;
+ask.CSA.responseReceived = false;
+ask.CSA.adsShown = false;
+ask.CSA.responseTime = null; ask.CSA.adsShownTime = null; ask.CSA.domReadyTime = null; ask.CSA.serpShownTime = null; ask.CSA.serpVisible = false;
+ask.CSA.showSerpTimeoutFired = false;
+ask.CSA.showSerpTimeoutLength = _showSerpTimeoutLength;
+ask.CSA.showSerpStartTime = null;
+ask.CSA.numTopAds = null;
+ask.CSA.numBottomAds = null;
+ask.CSA.numRightAds = null;
+ask.CSA.adDepth = null;
+ask.CSA.serpHiddenPreAds = null;
+ask.CSA.serpShownPostAds = null;
+ask.CSA.viewportHeight = null;
+ask.CSA.viewportWidth = null;
+ask.CSA.centerRailHeight = null;
+ask.CSA.centerRailWidth = null;
+ask.CSA.rightRailHeight = null;
+ask.CSA.rightRailWidth = null;
+ask.CSA.csaHeight = null;
+ask.CSA.csaWidth = null;
+ask.CSA.adContentRatio = null;
+ask.CSA.optimizeAdRequest = null;
+ask.CSA.calculateAdContentMetrics = null;
+ask.CSA.gslExtensions = null;
+ask.CSA.addCSALoadCallback = function(adsCb, timeoutCb, timeoutValue){
+_log("addCSALoadCallback", adsCb, timeoutCb, timeoutValue);
+var callbackObj = null;
+if(typeof adsCb !== "function") {
+return;
+}
+callbackObj = { adsCb: adsCb, timeoutCb: timeoutCb, timeoutValue: timeoutValue, timeout: null };
+if(ask.CSA.adsShown) {
+adsCb();
+} else {
+if(typeof timeoutCb === "function" && timeoutValue > 0) {
+callbackObj.timeout = setTimeout(function(){
+var idx = ask.CSA.indexOf(_csaCallbacksObjects, callbackObj);
+if(idx > -1) {
+handleCallbackTimeout(callbackObj);
+}
+}, timeoutValue);
+}
+_csaCallbacksObjects.push(callbackObj);
+}
+};
+ask.CSA.startShowSerpTimeout = function(){
+_log("startShowSerpTimeout", _showSerpTimeoutLength);
+_showSerpTimer = setTimeout(handleSerpTimeout, _showSerpTimeoutLength);
+ask.CSA.showSerpStartTime = new Date() - _csaStartTime;
+};
+ask.CSA.domReady = function(){
+_log("domReady");
+_domReady = true;
+ask.CSA.domReadyTime = new Date() - _csaStartTime;
+invokeCallbacks(_domCallbacks);
+};
+ask.CSA.showSerp = makeSerpVisible;
+ask.CSA.handleTopAdsLoaded = function(containerName, adsLoaded){
+_log("handleTopAdsLoaded " + adsLoaded);
+addBackgroundColor(adsLoaded, containerName, ask.CSA.adblock1["colorBackground"]);
+ask.CSA.adsShown = true;
+ask.CSA.adsShownTime = new Date() - _csaStartTime;
+makeSerpVisible();
+fireCSACallbacks();
+};
+ask.CSA.handleNoTopAdsLoaded = noAdLoadedCallback;
+ask.CSA.handleBottomAdsLoaded = function(containerName, adsLoaded){
+_log("handleBottomAdsLoaded " + adsLoaded);
+addBackgroundColor(adsLoaded, containerName, ask.CSA.adblock2["colorBackground"]);
+if (false) {
+ask.CSA.adsShown = true;
+ask.CSA.adsShownTime = new Date() - _csaStartTime;
+makeSerpVisible();
+fireCSACallbacks();
+}
+};
+ask.CSA.handleNoBottomAdsLoaded = noAdLoadedCallback;
+ask.CSA.handleRightAdsLoaded = function(containerName, adsLoaded){
+_log("handleRightAdsLoaded " + adsLoaded);
+addBackgroundColor(adsLoaded, containerName, ask.CSA.adblock3["colorBackground"]);
+};
+ask.CSA.handleNoRightAdsLoaded = noAdLoadedCallback;
+ask.CSA.handleCSAResponse = function(numAdsMap) {
+_log("handleCSAResponse " + numAdsMap);
+ask.CSA.responseTime = new Date() - _csaStartTime;
+if (numAdsMap["magic1"] != undefined) {
+ask.CSA.numTopAds = numAdsMap["magic1"];
+ask.CSA.adDepth = ask.CSA.numTopAds;
+}
+if (numAdsMap["magic2"] != undefined) {
+ask.CSA.numBottomAds = numAdsMap["magic2"];
+}
+if (ask.CSA.adDepth < ask.CSA.numBottomAds) {
+ask.CSA.adDepth = ask.CSA.numBottomAds;
+}
+if (numAdsMap["magic3"] != undefined) {
+ask.CSA.numRightAds = numAdsMap["magic3"];
+}
+if(_domReady) {
+processAdResponse();
+} else {
+_domCallbacks.push(processAdResponse);
+}
+};
+function processAdResponse(){
+_log("processAdResponse");
+ask.CSA.responseReceived = true;
+setCSAMetaDataCookie();
+}
+function isSerpVisible() {
+var visible = false,
+selectors = ["#midblock", "#rightblock", "#mobile-footer", ".mobile-web-results", ".hcsa", ".footer"],
+elems = null;
+for(var i = 0; i < selectors.length; i++) {
+if(visible) continue;
+try{
+elems = document.querySelectorAll(selectors[i]);
+} catch(e) {
+_log("Error fetching serp elements: " + e);
+}
+if(elems) {
+for(var j = 0; j < elems.length; j++) {
+visible=(visible || isVisible(elems[j]));
+}
+}
+}
+return visible;
+}
+function isVisible(elem) {
+var outOfFlow = (elem.offsetWidth !== 0 || elem.offsetHeight !== 0),
+invisible = false;
+try {
+invisible = (window.getComputedStyle(elem).getPropertyValue("visibility") === "hidden");
+} catch(e) {
+_log("Error getting style of elem: " + e);
+}
+return outOfFlow || invisible;
+}
+function makeSerpVisible() {
+if(ask.CSA.serpVisible) return;
+_log("makeSerpVisible");
+var css = '#mid-content,#right-content,#midblock,#rightblock,#mobile-footer,.mobile-web-results,.hcsa,.footer { visibility:visible;}';
+var head = document.getElementsByTagName('head')[0];
+var style = document.createElement('style');
+style.type = 'text/css';
+if (style.styleSheet){
+style.styleSheet.cssText = css;
+} else {
+style.appendChild(document.createTextNode(css));
+}
+head.appendChild(style);
+if (!_showSerpTimeoutCleared) {
+clearTimeout(_showSerpTimer);
+_showSerpTimeoutCleared = true;
+}
+ask.CSA.serpVisible = true;
+ask.CSA.serpShownTime = new Date() - _csaStartTime;
+}
+function setCSAMetaDataCookie(){
+var defaultDomain = '.ask.com',
+currentDomain = getRootDomain();
+if (currentDomain && currentDomain != '') {
+defaultDomain = currentDomain;
+}
+document.cookie = 'adDepth=' + ask.CSA.adDepth + ';path=/;domain=' + defaultDomain;
+document.cookie = 'ad_cnt=' + (ask.CSA.numTopAds + ask.CSA.numBottomAds) + ';path=/;domain='+ defaultDomain;
+}
+function getRootDomain() {
+try {
+var loc = document.createElement("a");
+loc.href = window.location.href;
+var hostArray = loc.hostname.split('.');
+var newArray = [hostArray[hostArray.length-2], hostArray[hostArray.length-1]];
+var rootDomain = '.'.concat(newArray.join('.'));
+return rootDomain;
+} catch(e) {
+console.log(e);
+return '';
+}
+}
+function updateMonitoringHash(){
+_log("updateMonitoringHash");
+var topAds = ask.CSA.numTopAds || 0,
+bottomAds = ask.CSA.numBottomAds || 0,
+rightAds = ask.CSA.numRightAds || 0,
+hash = "num_ads_top=" + topAds +
+"&num_ads_bottom=" + bottomAds +
+"&num_ads_right=" + rightAds +
+"&total_num_ads=" + (topAds + bottomAds) +
+"&content_hidden_pre_ads=" + (ask.CSA.serpHiddenPreAds ? 1 : 0) +
+"&content_shown_post_ads=" + (ask.CSA.serpShownPostAds ? 1 : 0) +
+"&ads_response_time_ms=" + ask.CSA.responseTime;
+window.location.hash = hash;
+}
+function updateMonitoringElement(){
+_log("updateMonitoringElement");
+var topAds = ask.CSA.numTopAds || 0,
+bottomAds = ask.CSA.numBottomAds || 0,
+rightAds = ask.CSA.numRightAds || 0,
+body = document.getElementsByTagName("body")[0],
+elem = document.createElement("div");
+elem.setAttribute("id", "csa-monitor-data");
+elem.setAttribute("style", "visibility: hidden;");
+elem.setAttribute("data-num_ads_top", topAds);
+elem.setAttribute("data-num_ads_bottom", bottomAds);
+elem.setAttribute("data-num_ads_right", rightAds);
+elem.setAttribute("data-total_num_ads", topAds + bottomAds + rightAds);
+elem.setAttribute("data-content_hidden_pre_ads", ask.CSA.serpHiddenPreAds ? 1 : 0);
+elem.setAttribute("data-content_shown_post_ads", ask.CSA.serpShownPostAds ? 1 : 0);
+elem.setAttribute("data-ads_response_time_ms", ask.CSA.responseTime);
+body.appendChild(elem);
+}
+function noAdLoadedCallback(containerName, adsLoaded) {
+_log("noAdLoadedCallback");
+function process(){
+var adContainer = document.getElementById(containerName);
+var csaBackfillRS = document.getElementById('top-csa-bkfil');
+if(adContainer) {
+adContainer.style.display = "none";
+}
+if(csaBackfillRS){
+csaBackfillRS.style.display = "block";
+}
+makeSerpVisible();
+}
+if(_domReady) {
+process();
+} else {
+_domCallbacks.push(process);
+}
+}
+function addBackgroundColor(adsLoaded, containerName, shadeSelector) {
+var adElement = document.getElementById(containerName);
+if (adElement) {
+adElement.style.backgroundColor = shadeSelector;
+}
+}
+function handleCallbackTimeout(callbackObj) {
+_log("handleCallbackTimeout", callbackObj);
+clearTimeout(callbackObj.timeout);
+callbackObj.timeoutCb();
+}
+function handleSerpTimeout() {
+_log("handleSerpTimeout");
+makeSerpVisible();
+ask.CSA.showSerpTimeoutFired = true;
+_showSerpTimeoutCleared = true;
+}
+function fireCSACallbacks(){
+_log("fireCSACallbacks");
+var csaCallbacks = [];
+for(var i = 0; i < _csaCallbacksObjects.length; i++) {
+csaCallbacks.push(_csaCallbacksObjects[i].adsCb);
+clearTimeout(_csaCallbacksObjects[i].timeout);
+}
+_csaCallbacksObjects = [];
+_log("csaCallbacks: ", csaCallbacks);
+invokeCallbacks(csaCallbacks);
+}
+function invokeCallbacks(callbacks) {
+if(callbacks.length) {
+for(var i = 0; i < callbacks.length; i++) {
+if(typeof callbacks[i] == "function") {
+_log("invoking callback " + i);
+try{
+callbacks[i].call(null);
+} catch(e){
+}
+}
+}
+callbacks.splice(0, callbacks.length);
+}
+}
+ask.CSA.optimizeAdRequest = function optimizeAdRequest(adblock) {
+var h = (Math.max(document.documentElement.clientHeight, window.innerHeight || 0));
+var w = (Math.max(document.documentElement.clientWidth, window.innerWidth || 0));
+var enabledForOrientation = "" === "true" ? true : h > w;
+var enabled = "";
+if(enabled === "true" && 800 > h && enabledForOrientation) {
+if(adblock && typeof adblock.maxTop !== "undefined") {
+adblock.maxTop -= 1;
+}
+}
+}
+})();
+_googCsa('jsLoadedCallback', function () {
+var pageOptions = ask.CSA.pageOptions = {"instantPreviews":false,"adPage":"1","sellerRatings":true,"attributionSpacingBelow":7,"location":false,"plusOnes":true,"query":"queryunreal","numRepeated":"5","domainLinkAboveDescription":true,"adtest":"off","rightHandAttribution":false,"offerExtension":false,"hl":"","heightConstrained":false,"oe":"utf-8","adsafe":"medium","pubId":"aj-cat-sp14","isAndroidTablet":false,"ie":"utf-8","siteLinks":true,"linkTarget":"_blank","channel":"jeev,ud_desktop,ask-non-dla","clickToCall":false};
+if (pageOptions) {
+pageOptions['adsResponseCallback'] = ask.CSA.handleCSAResponse;
+}
+if (!false) {
+var adblock1 = ask.CSA.adblock1 = {"lineHeightDomainLink":"19","colorAttribution":"#333333","colorBackground":"#FFFFFF","colorDomainLink":"#0E7744","colorTitleLink":"#3300B5","width":"99.5%","detailedAttribution":true,"clicktrackUrl":"//clk-askus.ask.com/clk?pos=top&q=queryunreal&qid=F48150C18CB1CB7A56F223A61295144B&ip=44c5647e&o=0&l=dir&qsrc=121&page=1&cl=aj-cat-sp14&ch=jeev%2Cud_desktop%2Cask-non-dla&c=a&p_uid=&p_clk_id=&anxu=http%3A%2F%2Fwww.ask.com%2Fweb&pl=75e1i6%3D9Q6kB1qUR9P%26uy%2B%3DqECc%26n5%3DRanYg%26ZQ%3D9JxQMxazlfAwFxNgcyj6wfvL%2BcBz7pl9%26N5%3DC3gJfG0%26ER%3D%26fRAD%3D5i-MPv-5t%25r%26NZd%3DgWXwUatS0_9ttkpckAfeiz%2B-31n-Wey%26v6%3DPEBKf2%26nr%3D9O5.csB%268yT%3D%26Pn%3DhciP2c3NZ1Q%26gI%3D9ldOp%26OA5%3DwM%26Un%3DqHC%263n%3DT%26JF%3D%26tTM%3D%26W%3DP&gclid=&up=d6a08%3D99YhM0%260Q%3DDX5%26BR%3DVAs%26%25K.WU2w0A%3D4uP%26Nh.AgQ9nU%3Dcz-8ii-gu5Y%2676.qCWxZntClbGSk%3Dkcsw%2C06_juJhJ8I%2Cs%25K-1dM-xAM%26L%3DHAVy%2BI","fontSizeDomainLink":"13","colorAdSeparator":"#FFFFFF","clickableBackgrounds":true,"colorText":"#333333","fontSizeDescription":"13","lineHeightDescription":"17","fontSizeTitle":"15","fontSizeAttribution":"13","maxTop":"5","container":"magic1","lines":"3","verticalSpacing":"9","lineHeightTitle":"18","longerHeadlines":true};
+if (adblock1) {
+adblock1['noAdLoadedCallback'] = ask.CSA.handleNoTopAdsLoaded;
+adblock1['adLoadedCallback'] = ask.CSA.handleTopAdsLoaded;
+}
+}
+var adblock2 = ask.CSA.adblock2 = {"lineHeightDomainLink":"19","colorAttribution":"#333333","colorBackground":"#FFFFFF","colorDomainLink":"#0E7744","colorTitleLink":"#3300B5","width":"99.5%","detailedAttribution":true,"number":"5","clicktrackUrl":"//clk-askus.ask.com/clk?pos=bottom&q=queryunreal&qid=F48150C18CB1CB7A56F223A61295144B&ip=44c5647e&o=0&l=dir&qsrc=121&page=1&cl=aj-cat-sp14&ch=jeev%2Cud_desktop%2Cask-non-dla&c=a&p_uid=&p_clk_id=&anxu=http%3A%2F%2Fwww.ask.com%2Fweb&pl=4c21bI%3DLdqvEYcDkF2%26Ouf%3D5w0R%26tv%3DEnUXv%26LN%3DGpTeUE6p3O3NUxOZ10VeU8Fk7viAB%2BCB%26Qe%3DsXTkF1a%26IP%3D%262B6%25%3DhC-HU%25-WQOw%26cNr%3DOWbiSK%25bn_eAm%2B6MOSvdkgZ-sAw-i8H%2671%3D9mDd0i%26Qv%3DiEY.Q60%26sJW%3D%26M%2B%3D2HQ2k%259qRnt%26m%25%3DWyKNE%26AxC%3Dc8%26iv%3DxBs%26JW%3Dk%260U%3D%26tUt%3D%26J%3Df&gclid=&up=4460I%3DhvPrlW%26hx%3DErP%26Sj%3DYLi%264l.xilI4y%3DPej%26iv.UbVMef%3DSE-x8w-OujK%265E.7XjE6gihVFY8j%3DmVgX%2Czd_HmSTEqq%2CuDt-hGQ-IqF%26n%3DjZfrcJ2ma","fontSizeDomainLink":"13","colorAdSeparator":"#FFFFFF","clickableBackgrounds":true,"colorText":"#333333","fontSizeDescription":"13","lineHeightDescription":"17","fontSizeTitle":"15","fontSizeAttribution":"13","container":"magic2","lines":"3","verticalSpacing":"9","lineHeightTitle":"18","longerHeadlines":true};
+if (adblock2) {
+adblock2['noAdLoadedCallback'] = ask.CSA.handleNoBottomAdsLoaded;
+adblock2['adLoadedCallback'] = ask.CSA.handleBottomAdsLoaded;
+}
+if(typeof adblock1 != 'undefined' && null != adblock1 &&
+typeof ask.CSA.optimizeAdRequest === "function" && pageOptions.isAndroidTablet === true) {
+ask.CSA.optimizeAdRequest(adblock1);
+}
+function calculateSurplus(rr,ad,offset,win) {
+return win > 0 ? ((win+rr-offset) - (ad*2))/2 : -1;
+}
+function applyRules(surplus,breakpoints) {
+if(surplus > 0) {
+for(var i=0;i<breakpoints.length;i++) {
+var min = breakpoints[i].pixels;
+var max = breakpoints[i+1] ? breakpoints[i+1].pixels : 10000;
+if(surplus > min && surplus <= max) {
+return breakpoints[i].extensions || [];
+} else if(surplus < min) {
+return [];
+}
+}
+return breakpoints[i-1].extensions || [];
+} else {
+return [];
+}
+}
+function enableExtensions(extensions,csaCfg,pageCfg) {
+for(var i=0;i<extensions.length;i++) {
+var value = extensions[i].indexOf(':') != -1 ? extensions[i].substring(extensions[i].indexOf(':')+1) : true;
+var ext = extensions[i].indexOf(':') != -1 ? extensions[i].substring(0,extensions[i].indexOf(':')) : extensions[i];
+csaCfg[ext]=value;
+pageCfg[ext]=value;
+}
+var loggingParams = extensions.join(";").replace(/heightConstrained\:false/,"multiLineSiteLinks").replace(/siteLinks\;/,"");
+ask.CSA.gslExtensions = loggingParams;
+}
+var pl_rqnum = 0;
+var blocks = ['ads', pageOptions];
+if (typeof adblock1 != 'undefined' && null != adblock1) {
+pl_rqnum = parseInt(adblock1.maxTop);
+blocks.push(adblock1);
+}
+if (typeof adblock2 != 'undefined' && null != adblock2) {
+pl_rqnum = pl_rqnum + parseInt(adblock2.number);
+blocks.push(adblock2);
+}
+if (typeof adblock3 != 'undefined' && null != adblock3) {
+pl_rqnum = pl_rqnum + parseInt(adblock3.number);
+blocks.push(adblock3);
+}
+window['backfillParam'] = window.backfillParam || {};
+if (typeof adblock1 != 'undefined' && null != adblock1) {
+window['backfillParam']['pl_hex'] = adblock1.colorBackground ? adblock1.colorBackground : "#FFFFFF";
+window['backfillParam']['pl_clksp'] = adblock1.clickableBackgrounds;
+} else {
+window['backfillParam']['pl_hex'] = adblock2.colorBackground ? adblock2.colorBackground : "#FFFFFF";
+window['backfillParam']['pl_clksp'] = adblock2.clickableBackgrounds;
+}
+window['backfillParam']['pl_cl'] = pageOptions.pubId,
+window['backfillParam']['pl_ch'] = pageOptions.channel,
+window['backfillParam']['pl_type'] = 'csa';
+window['backfillParam']['pl_rp'] = (pageOptions.numRepeated) ? true : false;
+window['backfillParam']['pl_rqnum'] = pl_rqnum;
+window['backfillParam']['pl_timeout'] = ask.CSA.showSerpTimeoutLength ? ask.CSA.showSerpTimeoutLength : 0;
+try {
+_googCsa.apply(null, blocks);
+} catch (err) {
+ask.CSA.showSerp();
+}
+});
+ask.CSA.indexOf = function indexOf(inputObj, findObj) {
+for (var index = 0, length = inputObj.length; index < length; index++) {
+if (inputObj[index] === findObj) { return index; }
+}
+return -1;
+}
+          </script>
+          <style type="text/css">
+           #magic1 {
+border-bottom: 1px solid #EBEBEB;
+}
+#magic2 {
+border-top: 1px solid #EBEBEB;
+}
+          </style>
+          <noscript>
+           <style type="text/css">
+            #midblock,#rightblock,#mobile-footer,.mobile-web-results,.hcsa,.footer {
+visibility:visible !important;
+}
+           </style>
+          </noscript>
+          <link href="http://saservice.ask.com/c/css/sas-31783be6ccbbb998fa309ae0703961f3871fb977.css" rel="stylesheet" type="text/css"/>
+          <script id="displayAdConfiguration" type="text/javascript">
+           /*********************************************************
+* Including the adyield libraries, load the library and
+* initalize the ad server
+*/
+var CONTAINER_TIMEOUT = 1500;
+var googletag = googletag || {};
+googletag.cmd = googletag.cmd || [];
+googletag.slots = googletag.slots || {};
+var iacjs = iacjs || {};
+iacjs.que = iacjs.que || [];
+window.asynLoader = function(scriptInfo) {
+var p, tag = document.createElement("script"),
+node = document.getElementsByTagName("script")[0];
+tag.async = true;
+for (p in scriptInfo) {
+if (scriptInfo.hasOwnProperty(p)) {
+tag[p] = scriptInfo[p];
+}
+}
+node.parentNode.insertBefore(tag, node);
+};
+function initAdServer() {
+if (iacjs.initAdserverSet) return;
+asynLoader({
+src: "//www.googletagservices.com/tag/js/gpt.js"
+});
+iacjs.initAdserverSet = true;
+}
+asynLoader({
+src: "//www.iacpublish.com/iacpublisher.min-ask.js"
+});
+get_request_identifier = (function() {
+return Math.random().toString(36).substr(2)
+}());
+          </script>
+          <script>
+           var slotsDefined = [];
+slotsDefined.push({
+placement: 'dart-0',
+code: '/23219321/iac.ask-ask.us.dw/web/organic-dirN-0/0/',
+sizes: [
+[300, 250]
+],
+ad_uuid: "300x250_1",
+targeting: {
+pos: "bot",
+pos2: "300x250_1"
+}
+})
+var ad_config = {
+pageTargeting: {
+lang: "eng",
+loc: "us",
+ref: "direct",
+dc_ref: encodeURIComponent("http://www.ask.com/web?q=queryunreal"),
+iabcat: "iab19-35",
+rpv: "62",
+ptype: "results",
+tx1: "dirN",
+tx2: "jeev",
+ldid:"0",
+dow: new Date().getDay().toString(),
+rquid: get_request_identifier
+},
+slots: slotsDefined
+}
+          </script>
+          <script>
+           iacjs.que.push(function() {
+iacjs.addAdUnits(ad_config.slots);
+iacjs.pageTargeting = ad_config.pageTargeting;
+iacjs.requestBids({
+bidsBackHandler: function() {
+window.initAdServer();
+}
+})
+});
+          </script>
+          <script>
+           (function() {
+var slots = ad_config.slots || [];
+var index, pageTarget;
+var pageTargeting = ad_config.pageTargeting || {};
+var defineSlot = function(slot) {
+if (typeof slot === 'object') {
+(function(slot) {
+googletag.cmd.push(function() {
+googletag.slots[slot.placement] = googletag.defineSlot(slot.code, slot.sizes, slot.placement).addService(googletag.pubads());
+for (target in slot.targeting) {
+if (slot.targeting.hasOwnProperty(target)) {
+googletag.slots[slot.placement].setTargeting(target, slot.targeting[target])
+}
+}
+})
+})(slot)
+} else {
+console.log('slot not defined', slot)
+}
+};
+window.defineSlot = defineSlot;
+if (slots.length > 0) {
+for (index = 0; index < slots.length; index++) {
+defineSlot(slots[index]);
+}
+}
+googletag.cmd.push(function() {
+googletag.pubads().enableSingleRequest();
+googletag.enableServices();
+});
+googletag.cmd.push(function() {
+iacjs.que.push(function() {
+iacjs.setTargetingForGPTAsync();
+});
+});
+iacjs.timeout = window.setTimeout(initAdServer, CONTAINER_TIMEOUT);
+})();
+          </script>
+          <link href="/st/c/css/ask_web.min.a86d41ab.css" rel="stylesheet" type="text/css">
+           <style>
+            .hcsa {
+visibility: hidden;
+}
+.sprite {
+background-image: url(//sp.ask.com/sh/i/images/ask-sprite-1.0.1.png);
+}
+@media
+(-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+.sprite {
+background-image: url(//sp.ask.com/sh/i/images/ask-sprite-1.0.1-@2x.png);
+background-size: 111px 180px;
+}
+}
+#magic2 {
+border-bottom: 1px solid #ebebeb;
+}
+.rightrail-web-result-title-link{
+text-decoration: none;
+bottom: 5px;
+position: relative;
+}
+a.sa_headline, .web-results-more-link, .web-result-title-link, .news-result-item-link {
+text-decoration: none;
+}
+.sa a:hover{
+text-decoration: none;
+}
+.rightrail-web-results-title{
+display: block;
+color: #666;
+font-size: 13px;
+line-height: 16px;
+padding-bottom: 6px;
+}
+           </style>
+          </link>
+         </meta>
+        </link>
+       </link>
+      </link>
+     </link>
+    </link>
+   </link>
+  </link>
+ </head>
+ <body>
+  <script type="text/javascript">
+   var dataLayer = [
+{
+"channel": "web",
+"affiliateid": "0",
+"sessionid": "652765719",
+"ldid": "",
+"acquisitiondivision": "dirN"
+}
+];
+  </script>
+  <noscript>
+   <iframe height="0" src="//www.googletagmanager.com/ns.html?id=GTM-T3KVMC" style="display:none;visibility:hidden" width="0">
+   </iframe>
+  </noscript>
+  <script>
+   (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='//www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-T3KVMC');
+  </script>
+  <div class="l-header">
+   <div class="searchbox">
+    <div class="searchbox-logo sprite ur js-searchbox-logo">
+     <a class="searchbox-logo-link" href="//www.ask.com/?qsrc=14137&amp;o=0&amp;l=dir" onmousedown="uaction(this,{up:'d280D=MyxrSt&amp;3=p1ckdI&amp;zn=9&amp;rg=sJsVEqB1iB&amp;Vw=3FC2UcpYbe&amp;kf=c&amp;9I=Q9PYUYoLF'});" title="Ask.com">
+      <span class="alt-text">
+       askLogo
+      </span>
+     </a>
+    </div>
+    <div class="searchbox-wrapper">
+     <div class="searchbox-container js-searchbox-container">
+      <form action="/web" id="js-searchbox-top-form">
+       <input autocapitalize="off" autocomplete="off" autocorrect="off" class="searchbox-q js-searchbox-q" data-ordinal="0" id="js-top-q" maxlength="2048" name="q" type="text" value="queryunreal">
+        <input name="qsrc" type="hidden" value="1">
+         <input name="o" type="hidden" value="0">
+          <input name="l" type="hidden" value="dir">
+           <input id="qo" name="qo" type="hidden" value="serpSearchTopBox">
+            <button class="searchbox-button js-sb-button" type="submit" value="">
+             <div class="searchbox-magnifier sprite">
+             </div>
+            </button>
+           </input>
+          </input>
+         </input>
+        </input>
+       </input>
+      </form>
+     </div>
+     <div class="searchbox-clear sprite js-searchbox-clear" title="clear">
+     </div>
+     <div class="searchbox-poweredby sprite">
+     </div>
+    </div>
+   </div>
+   <div class="nav-links ur">
+    <ul>
+     <li class="nav-links-active">
+      Answers
+     </li>
+     <li>
+      <span class="nav-separator">
+       |
+      </span>
+      <a class="nav-link js-nav-link" href="//www.ask.com/youtube?q=queryunreal&amp;qsrc=167&amp;qo=channelNavigation&amp;o=0&amp;l=dir" onmousedown="uaction(this,{up:'36b16=lv4TBT&amp;K=NX1irX&amp;HE=%&amp;2F=7trvKR4KUD&amp;Uk=aebRFgEKFI&amp;iV=s&amp;Zr=j+Yx+SMeD'});">
+       Videos
+      </a>
+     </li>
+     <li>
+      <span class="nav-separator">
+       |
+      </span>
+      <a class="nav-link js-nav-link" href="//www.ask.com/news?q=queryunreal&amp;qsrc=167&amp;qo=channelNavigation&amp;o=0&amp;l=dir" onmousedown="uaction(this,{up:'2c90W=TZEJen&amp;V=HEA0tC&amp;rO=m&amp;CD=DXULBDij2O&amp;Tk=vQRj9mVKcn&amp;7w=2&amp;gK=zFWf9gujn'});">
+       News
+      </a>
+     </li>
+    </ul>
+   </div>
+  </div>
+  <div class="l-content">
+   <div class="feedback-overlay js-feedback-overlay">
+   </div>
+   <div class="feedback">
+    <div class="feedback-button sprite js-feedback-button" onmousedown="uaction(this,{up:'eda1+=qkfAvPj&amp;F=8qu4&amp;Qp=V&amp;J5=xlDrBE&amp;K2=gM9E3THT&amp;SR=4&amp;h9=hmkgdBgXQ'});">
+    </div>
+    <div class="feedback-window js-feedback-window" onmousedown="uaction(this,{up:'63217=zB6+2Ix&amp;S=1W6S&amp;8y=S&amp;+J=iGIs0l&amp;rp=gSrpGlE3&amp;9G=D&amp;O1=uzdMOpx6O'});">
+     <span class="feedback-close sprite js-feedback-close" title="Close">
+     </span>
+     <div class="feedback-text">
+      Talk to us! Your input helps us improve Ask.com for the millions of people who use us every day.
+     </div>
+     <div class="feedback-separator">
+     </div>
+     <div class="feedback-text">
+      How would you rate Ask.com?
+     </div>
+     <div class="feedback-error-text js-feedback-error-rating">
+      Please provide rating before submitting your feedback.
+     </div>
+     <div class="feedback-rating js-feedback-rating">
+      <input alt="star-rating" class="sprite" type="radio" value="1">
+       <input alt="star-rating" class="sprite" type="radio" value="2">
+        <input alt="star-rating" class="sprite" type="radio" value="3">
+         <input alt="star-rating" class="sprite" type="radio" value="4">
+          <input alt="star-rating" class="sprite" type="radio" value="5">
+          </input>
+         </input>
+        </input>
+       </input>
+      </input>
+     </div>
+     <div class="feedback-separator">
+     </div>
+     <div class="feedback-text">
+      How can we make Ask.com better for you?
+     </div>
+     <div class="feedback-error-text js-feedback-error-comment">
+      Please provide feedback before submitting your response.
+     </div>
+     <form action="feedbackemailserp" name="feedback-form" target="hidden-iframe">
+      <textarea class="feedback-text-area" cols="51" maxlength="1500" name="comments" rows="2"></textarea>
+      <div class="feedback-separator">
+      </div>
+      <input class="js-user-rating" name="rating" type="hidden" value=""/>
+      <input name="ldid" type="hidden" value=""/>
+      <input name="an" type="hidden" value=""/>
+      <input name="query" type="hidden" value="queryunreal"/>
+      <input name="ad" type="hidden" value="dirN"/>
+      <input name="sid" type="hidden" value="652765719"/>
+      <input name="templateid" type="hidden" value="desktop"/>
+      <input name="fbdate" type="hidden" value="10/18/2016"/>
+      <textarea class="feedback-hidden-text-area" maxlength="1500" name="fbc1" type="hidden"></textarea>
+      <div class="feedback-text">
+       If you'd like a response, please provide your name and email address below.
+      </div>
+      <input class="feedback-input-box js-feedback-user-name" name="fbUserName" placeholder="Name" type="text"/>
+      <input class="feedback-input-box js-feedback-user-email" name="fbUserEmail" placeholder="Email" type="text"/>
+      <div class="feedback-separator">
+      </div>
+      <div>
+       <input class="feedback-submit" name="submit" type="submit" value="Submit"/>
+      </div>
+     </form>
+     <iframe class="feedback-hidden-iframe" name="hidden-iframe">
+     </iframe>
+    </div>
+    <div class="feedback-thank-you-text js-feedback-thank-you-text">
+     Thanks for the feedback!
+    </div>
+   </div>
+   <div class="spell-check l-spell-check">
+    <span class="spell-check-title">
+     Did you mean:
+    </span>
+    <a class="spell-check-link" href="//www.ask.com/web?q=query+unreal&amp;qsrc=19&amp;qo=spellCheck&amp;o=0&amp;l=dir" onmousedown="uaction(this,{up:'58a1y=iB%Q+34df3&amp;t=WPaOVQ&amp;oq=R&amp;W7=sD6JC3NA20&amp;RZ=SW1oV&amp;jx=y&amp;iV=kP7v+TiWzfsXfBP'});">
+     query unreal?
+    </a>
+   </div>
+   <div class="l-mid-content hcsa">
+    <div class="ad-top" id="csaTop">
+     <div id="magic1">
+     </div>
+    </div>
+    <script>
+     window['backfillParam'] = window['backfillParam'] || {};
+window['backfillParam']['pl_tmodn'] = 2;
+ask.CSA.startShowSerpTimeout();
+    </script>
+    <div class="l-web-results web-results content-mid">
+     <div class="web-results-header-title">
+      Web Results
+     </div>
+     <div class="web-result ur tsrc_tled " data-zen="true">
+      <h2 class="web-result-title">
+       <a class="web-result-title-link" href="https://wiki.beyondunreal.com/Legacy:UT_Server_Query" onmousedown="uaction(this,{up:'7f81V=n+tYgjRfZt&amp;h=9uMQoJ&amp;gF=B&amp;2f=Wvlf+rUhaKy0&amp;+3=SrqBw&amp;t5=W&amp;wH=0iWWWvK1q2uEdvt'});" target="_blank">
+        Legacy:UT Server
+        <kw>
+         Query - Unreal
+        </kw>
+        Wiki
+       </a>
+      </h2>
+      <p class="web-result-url">
+       wiki.beyondunreal.com/Legacy:UT_Server_Query
+      </p>
+      <p class="web-result-description">
+       May 12, 2003
+       <kw>
+        ...
+       </kw>
+       Introduction[edit]. UT makes use of the so called GameSpy Query Protocol to 
+return status information to be used by the in-game browser or 3rd ...
+      </p>
+     </div>
+     <div class="web-result ur tsrc_tled " data-zen="true">
+      <h2 class="web-result-title">
+       <a class="web-result-title-link" href="https://docs.unrealengine.com/latest/INT/Engine/AI/EnvironmentQuerySystem/UserGuide/" onmousedown="uaction(this,{up:'26f1f=scKYtvJUgO&amp;M=oUdVie&amp;Tm=a&amp;F1=eH7%6gKjHdv+&amp;i+=WLalI&amp;Vq=j&amp;Oh=YljFuaeTCk8F2sc'});" target="_blank">
+        Environment Query System User Guide | Unreal Engine
+       </a>
+      </h2>
+      <p class="web-result-url">
+       docs.unrealengine.com/latest/INT/Engine/AI/EnvironmentQuerySystem/UserGuide/
+      </p>
+      <p class="web-result-description">
+       This document covers the interface and most commonly used workflows of the 
+Environment Query System within Behavior Trees.
+      </p>
+     </div>
+     <div class="web-result ur tsrc_tled " data-zen="true">
+      <h2 class="web-result-title">
+       <a class="web-result-title-link" href="https://forums.unrealengine.com/showthread.php?7045-JSON-Query" onmousedown="uaction(this,{up:'e061p=SPzfuKFjUG&amp;P=Z9L626&amp;4E=4&amp;8O=CH%AzpppivNT&amp;2z=P80Vc&amp;Wl=2&amp;VX=0b3XE+zOTs4enJK'});" target="_blank">
+        Plugin JSON Query - Unreal Engine Forums
+       </a>
+      </h2>
+      <p class="web-result-url">
+       forums.unrealengine.com/showthread.php?7045-JSON-Query
+      </p>
+      <p class="web-result-description">
+       Hey guys! For the past couple of nights, while plowing through the codebase, I've 
+been working on a plugin that allows you to communicate ...
+      </p>
+     </div>
+     <div class="web-result ur tsrc_tled " data-zen="true">
+      <h2 class="web-result-title">
+       <a class="web-result-title-link" href="http://www.nubelo.com/profesionales/?query=Unreal" onmousedown="uaction(this,{up:'6bd1C=kdJ75hqPBm&amp;b=8WA5N0&amp;1d=t&amp;9V=PLhQn7FOJQ9p&amp;3y=gNDxM&amp;KB=g&amp;BT=R6P38Is3XD4C5xS'});" target="_blank">
+        Unreal - Proyectos y trabajo freelance | nubelo
+       </a>
+      </h2>
+      <p class="web-result-url">
+       www.nubelo.com/profesionales/?query=Unreal
+      </p>
+      <p class="web-result-description">
+       www . mireiacarre . com I am a freelance designer with 8 years of multi-
+disciplinary and self-taught experience by having worked in many different types 
+of ...
+      </p>
+     </div>
+     <div class="web-result ur tsrc_tled " data-zen="true">
+      <h2 class="web-result-title">
+       <a class="web-result-title-link" href="http://www.hypercoop.tk/oldnews.htm" onmousedown="uaction(this,{up:'89419=DGYLZoLC87&amp;D=34YCSJ&amp;3U=I&amp;tA=B8e9fBcKIti1&amp;%k=41Rr+&amp;BV=k&amp;Bo=ghqbE4GPB8T3Q+i'});" target="_blank">
+        Hyper.nl Unreal Services - HyperCoop - News Archive
+       </a>
+      </h2>
+      <p class="web-result-url">
+       www.hypercoop.tk/oldnews.htm
+      </p>
+      <p class="web-result-description">
+       Dec 26, 2011
+       <kw>
+        ...
+       </kw>
+       Standalone server query program released. TheDarkSider released UQuery, a 
+small standalone program to
+       <kw>
+        query Unreal
+       </kw>
+       servers with.
+      </p>
+     </div>
+    </div>
+    <div id="csaBottom">
+     <div id="magic2">
+     </div>
+    </div>
+    <script>
+     window['backfillParam'] = window['backfillParam'] || {};
+window['backfillParam']['pl_bmodn'] = 4;
+    </script>
+    <div class="l-pagination pagination">
+     <ul>
+      <li class="pagination-number pagination-active">
+       1
+      </li>
+      <a class="pagination-number-link" href="//www.ask.com/web?q=queryunreal&amp;page=2&amp;qid=F48150C18CB1CB7A56F223A61295144B&amp;o=0&amp;l=dir&amp;qsrc=998&amp;qo=pagination" onmousedown="uaction(this,{up:'f8b1c=nn5V62oV85&amp;U=3f%uv2&amp;mn=V&amp;T3=DYRB94tyYy&amp;8T=5TX7oDpI5O&amp;RC=G&amp;MN=GgiMIMaGfDWd2xR'});">
+       <li class="pagination-number">
+        2
+       </li>
+      </a>
+      <a class="js-pagination-next" href="//www.ask.com/web?q=queryunreal&amp;page=2&amp;qid=F48150C18CB1CB7A56F223A61295144B&amp;o=0&amp;l=dir&amp;qsrc=998&amp;qo=pagination" onmousedown="uaction(this,{up:'86c0N=3G5Y%iMswp&amp;z=+WApgW&amp;Zu=o&amp;XU=Tc1Lq8E4fw&amp;fO=iO1wvziG0O&amp;wb=l&amp;Wa=WDFQHKOj3aUoFAb'});">
+       <li class="pagination-next">
+        Next
+       </li>
+      </a>
+     </ul>
+    </div>
+   </div>
+   <div class="l-right-content hcsa">
+    <div class="l-rightrail-web-results content-right" data-zen="true">
+     <div class="rightrail-web-results-header">
+      More Info
+     </div>
+     <div class="rightrail-web-result">
+      <h3 class="rightrail-web-result-title">
+       <a class="rightrail-web-result-title-link" href="https://www.epicgames.com/unrealtournament/forums/usertag.php?do=list&amp;action=tags&amp;t=12627" onmousedown="uaction(this,{up:'df41q=IcNyyq7UbE&amp;t=5IULo&amp;GF=k&amp;S6=BIkAraYb06Dw&amp;t2=TE+ir&amp;q+=n&amp;gt=mEqAxKXBddle8KV'});" target="_blank">
+        Tags In Thread: Server
+        <kw>
+         Query - Unreal
+        </kw>
+        Tournament Forums - Epic Games
+       </a>
+      </h3>
+      <p class="rightrail-web-result-url">
+       www.epicgames.com
+      </p>
+      <p class="rightrail-web-result-description">
+       If this is your first visit, be sure to check out the FAQ by clicking the link above. 
+You may have to register before you can post: click the register link above to ...
+      </p>
+     </div>
+     <div class="rightrail-web-result">
+      <h3 class="rightrail-web-result-title">
+       <a class="rightrail-web-result-title-link" href="http://www.tagalogtranslate.com/en_tl/16959/unreal" onmousedown="uaction(this,{up:'9450V=oyGKo18S9v&amp;y=SF8Q5&amp;Bj=m&amp;vW=KB0g9THEhwuH&amp;r+=YuS5N&amp;RF=H&amp;Xq=Jsv1P1squSnprGw'});" target="_blank">
+        English to Tagalog: unreal | Tagalog Translation
+       </a>
+      </h3>
+      <p class="rightrail-web-result-url">
+       www.tagalogtranslate.com
+      </p>
+      <p class="rightrail-web-result-description">
+       English to Tagalog. Search
+       <kw>
+        Query: unreal
+       </kw>
+       . Probably related with: English, 
+Tagalog. unreal. di-makatotohanan;. May be synonymous with: English, English.
+      </p>
+     </div>
+     <div class="rightrail-web-result">
+      <h3 class="rightrail-web-result-title">
+       <a class="rightrail-web-result-title-link" href="http://www.prolancer.com.br/profissionais/?query=Unreal" onmousedown="uaction(this,{up:'3191m=QKXp0n5GY2&amp;g=MOGo2&amp;7T=Q&amp;qQ=e1OFuhlBt2Xf&amp;nO=8JuVB&amp;PU=O&amp;lb=xUrD9QSZd%bXyuG'});" target="_blank">
+        Unreal - Trabalhos freelancer e vagas de emprego | Prolancer
+       </a>
+      </h3>
+      <p class="rightrail-web-result-url">
+       www.prolancer.com.br
+      </p>
+      <p class="rightrail-web-result-description">
+       ARTISTA 3D, PROGRAMADOR... Me formei em Design de Mídias Digitais na FIT 
+e em cursos de CG na SAGA e Melies. Depois estudei programação de jogos ...
+      </p>
+     </div>
+    </div>
+    <div class="displayAd dartAd">
+     <div id="dart-0">
+      <script type="text/javascript">
+       googletag.cmd.push(function() { googletag.display('dart-0'); });
+      </script>
+     </div>
+    </div>
+   </div>
+  </div>
+  <div class="clear-both">
+  </div>
+  <div class="l-footer hcsa">
+   <div class="footer-links">
+    <a class="footer-link" href="//about.ask.com" onmousedown="uaction(this,{up:'5900X=84GRQpIBI&amp;R=MQTnfn&amp;%c=J&amp;aT=mQjvJ0EwBz&amp;dV=CXdbOLoSw0&amp;MQ=1&amp;2E=1sNrDUnST'});" target="_top">
+     About
+    </a>
+    <span>
+     ·
+    </span>
+    <a class="footer-link" href="//www.ask.com/privacy-policy" onmousedown="uaction(this,{up:'6db0F=hjHUpvDZJ&amp;M=Cxj82p&amp;0M=q&amp;x+=Mr1cYwFEE2&amp;zr=ujU+w4of5c&amp;7D=n&amp;ai=eERqhVmaY'});" target="_top">
+     Privacy
+    </a>
+    <span>
+     ·
+    </span>
+    <a class="footer-link" href="//www.ask.com/terms-of-service" onmousedown="uaction(this,{up:'8060w=bYaAetytt&amp;5=YS0KMA&amp;BJ=B&amp;xG=44QEzyi1Bs&amp;3J=Lbcm8lxn0W&amp;5H=D&amp;i6=cdp4aPlDM'});" target="_top">
+     Terms
+    </a>
+    <span>
+     ·
+    </span>
+    <a class="footer-link" href="http://about.ask.com/jobs" onmousedown="uaction(this,{up:'5110L=AeV%5zcnJ&amp;0=x6Fvh9&amp;Gj=2&amp;pb=to3AOPQlFF&amp;Uv=FiozRn41xT&amp;VJ=1&amp;af=Grcy5S5s5'});" target="_top">
+     Careers
+    </a>
+    <span>
+     ·
+    </span>
+    <a class="footer-link" href="http://help.ask.com" onmousedown="uaction(this,{up:'9fc0D=eoEQD4mUc&amp;O=8r5Egj&amp;1N=r&amp;pr=geSLW5vs8k&amp;ow=rpJvYVbS0P&amp;Tv=M&amp;y5=nx1bHhhWD'});" target="_top">
+     Help
+    </a>
+    <span class="footer-copyright">
+     © 2016 Ask.com
+    </span>
+   </div>
+  </div>
+  <script src="/st/c/js/ask_web.min.caa4b061.js" type="text/javascript">
+  </script>
+  <script src="/st/c/js/ask_web_feedback.min.18fb25fe.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+   JASK.ssCfg = (function(){
+return {
+"appendTo":"#sb,.qbox,.js-searchbox-container",
+"channel":"web",
+"path":"web",
+"disableTurnOffLink":"'false'",
+"disableSS": false,
+"server":"//ss.ask.com",
+"ldomain":"//www.ask.com/",
+"ssBold":"'false'",
+"clearSearchHistory":"Clear search history",
+"max":"",
+"ssFromQueryHistory":"true",
+"queryHistory":"queryunreal",
+"queryHistoryContentColor":"#663399",
+"ssContentColor":"'false'",
+"ssContentColorCode": "",
+"matchingTextUnBold": "",
+"suggestionTextUnBold": "",
+"ssItems":"",
+"appendParams":[]
+};
+})();
+  </script>
+  <script type="text/javascript">
+   var UInfo = window.UInfo || {};
+UInfo.pl = "2c70rY=W7yKfMhMql9&M9K=fgd7&OZ=zjq6+&jA=oS0m%ZHWL37L2LestfEiEvE454u1IXVM&4k=PX9N2Vn&A8=&TIqj=%z-BT7-GlxC&FZR=737kqrSOg_t+trNgkBCJexq-0Pm-2L+&zY=X2Ok46&NI=FuK.4NQ&8W5=JL2.hqx6-14CzlBN+l2v2XVvH+UIQmntQOBBeloEV7v&6s=O+PVgHNTY0O&oq=Dymfq&fJf=5s&5i=tBO&HX=2&W4=&zfZ=&4=p";
+  </script>
+  <script src="//sp.ask.com/sh/ads/ads.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+   var _AnemoneParams2 = {
+appId: 'T2_AskUS',
+appVersion: '6ebd0df',
+appDate: '2016-09-29T17:07:00Z',
+serverName: 'askus036iad.io.askjeeves.info',
+uniqueUser: '738AF912-E3F7-4260-A707-554A0077EC93',
+backFillRequired: true,
+suppressCookies: false,
+eventId: '9D6EE25D-2823-4A0F-BEDA-72AC51E813DC',
+browserLanguage: '',
+maxSession: 30,
+domain: '.ask.com',
+url: '/ulog',
+logPageView: false
+};
+  </script>
+  <script src="/st/c/js/ask_unified.min.c7f61e55.js" type="text/javascript">
+  </script>
+  <script type="text/javascript">
+   var ask = (typeof ask === 'undefined') ? {} : ask;
+(function(){
+var _timedOut = false,
+_fullPayload = window.backfillParam || {}, _timeFromSerpStart = null,
+_adsLoggingTimeout = null,
+_dynamicLoggingTimeout = null;
+try{
+_timeFromSerpStart = ((new Date() - ask.CSA.startTime) - ask.CSA.showSerpStartTime);
+_adsLoggingTimeout = parseInt('2000') - _timeFromSerpStart;
+_dynamicLoggingTimeout = Math.max(_adsLoggingTimeout, 1);
+}catch(e){
+_dynamicLoggingTimeout = 2000;
+}
+function mixinCSAAdData(payload){
+var externalData = {
+csaInfo: {
+domTime: ask.CSA.domReadyTime ? ask.CSA.domReadyTime : 0,
+adsResponseTime: ask.CSA.responseTime ? ask.CSA.responseTime : 0,
+adsShownTime: ask.CSA.adsShownTime ? ask.CSA.adsShownTime : 0,
+serpShownTime: ask.CSA.serpShownTime ? ask.CSA.serpShownTime : 0,
+supplement: _timedOut,
+serpTimedOut: !!ask.CSA.showSerpTimeoutFired,
+serpTimeoutStartTime: ask.CSA.showSerpStartTime ? ask.CSA.showSerpStartTime : 0,
+dynamicTimeout: _dynamicLoggingTimeout,
+viewportHeight: ask.CSA.viewportHeight ? ask.CSA.viewportHeight : 0,
+viewportWidth: ask.CSA.viewportWidth ? ask.CSA.viewportWidth : 0,
+adContentRatio: ask.CSA.adContentRatio ? ask.CSA.adContentRatio : 0,
+csaHeight: ask.CSA.csaHeight ? ask.CSA.csaHeight : 0,
+csaWidth: ask.CSA.csaWidth ? ask.CSA.csaWidth : 0,
+centerRailHeight: ask.CSA.centerRailHeight ? ask.CSA.centerRailHeight : 0,
+centerRailWidth: ask.CSA.centerRailWidth ? ask.CSA.centerRailWidth : 0,
+rightRailHeight: ask.CSA.rightRailHeight ? ask.CSA.rightRailHeight : 0,
+rightRailWidth: ask.CSA.rightRailWidth ? ask.CSA.rightRailWidth : 0,
+gslExtensions : ask.CSA.gslExtensions ? ask.CSA.gslExtensions : ""
+}
+};
+payload.pl_time = ask.CSA.responseTime ? ask.CSA.responseTime : 0;
+payload.pl_tnum = ask.CSA.numTopAds ? ask.CSA.numTopAds : 0;
+payload.pl_bnum = ask.CSA.numBottomAds ? ask.CSA.numBottomAds : 0;
+payload.pl_rrnum = ask.CSA.numRightAds ? ask.CSA.numRightAds : 0;
+payload.pl_rnum = parseInt(payload.pl_tnum) + parseInt(payload.pl_bnum) + parseInt(payload.pl_rrnum);
+try{
+mixinNavigationTimingInfo(externalData);
+payload.pl_edata = JSON.stringify(externalData);
+}catch(e){
+}
+}
+function mixinNavigationTimingInfo(eData) {
+if (typeof window.performance === 'undefined') {
+return;
+}
+var navInfo = eData["navInfo"] = {},
+csaInfo = eData.csaInfo,
+timing = window.performance.timing,
+navigation = window.performance.navigation,
+navStart = timing.navigationStart;
+navInfo.redirectCount = navigation.redirectCount;
+navInfo.navType = navigation.type;
+csaInfo.csaStartTime = (ask.CSA.startTime.getTime() - navStart);
+for (var k in timing) {
+//if (timing.hasOwnProperty(k)) {
+navInfo[k] = Math.max((timing[k] - navStart), 0);
+//}
+}
+}
+if (typeof ask !== 'undefined' && typeof ask.CSA !== 'undefined' && typeof ask.CSA.addCSALoadCallback === "function") {
+ask.CSA.addCSALoadCallback(function(){
+var payload = _timedOut ? { pl_supplement:true, pl_cl:_fullPayload.pl_cl, pl_ch:_fullPayload.pl_ch } : _fullPayload;
+var bookmark = false;
+if(typeof ask.CSA.calculateAdContentMetrics === "function") {
+ask.CSA.calculateAdContentMetrics(bookmark);
+}
+mixinCSAAdData(payload);
+logBackfillEvent(payload);
+}, function(){
+_timedOut = true;
+logBackfillEvent(_fullPayload);
+}, _dynamicLoggingTimeout);
+} else {
+logBackfillEvent(_fullPayload);
+}
+function addBingParams(payload) {
+payload.presentation={"count":0};
+payload.provider={};
+payload.pl_bfj = JSON.stringify(payload);
+return payload;
+}
+function logBackfillEvent(payload) {
+payload['anxi'] = JSUtil.defaultVal(_AnemoneParams2.eventId, '');
+payload.pl_as = !window.canRunAds ? true : false;
+ask.backFillPayload = payload;
+_Anemone.logEvent('BackFill', payload);
+}
+})();
+  </script>
+  <script>
+   $j(window).load(function(){
+setTimeout(function(){
+if(
+typeof getNavigationTimingInfo === "function" &&
+typeof _Anemone === "object"
+) {
+if(
+ask &&
+ask.backFillPayload &&
+ask.backFillPayload.pl_edata &&
+JSON.parse(ask.backFillPayload.pl_edata).navInfo &&
+JSON.parse(ask.backFillPayload.pl_edata).navInfo.loadEventEnd
+) {
+console.log("abort 2nd backfill ",JSON.parse(ask.backFillPayload.pl_edata).navInfo.loadEventEnd);
+return;
+}
+var navInfo = getNavigationTimingInfo(window),
+payload = {};
+if(navInfo) {
+payload.pl_edata = {};
+payload.presentation={"count":0};
+payload.provider={};
+payload.pl_bfj = JSON.stringify(payload);
+payload.pl_edata.navInfo = navInfo;
+payload.pl_edata = JSON.stringify(payload.pl_edata);
+//console.log("nav info ",JSON.parse(payload.pl_edata));
+payload['anxi'] = JSUtil.defaultVal(_AnemoneParams2.eventId, '');
+_Anemone.logEvent('BackFill', payload);
+}
+}
+},0);
+});
+  </script>
+  <script>
+   /**
+* Trigger the backfill event with lotame params
+* @param lotameInfo
+* @returns no return
+*/
+var logBackfillEvent = function (lotameInfo) {
+setTimeout(function () {
+if (typeof _Anemone === "object") {
+payload = {};
+payload.pl_ltmedata = {};
+payload.presentation = {"count": 0};
+payload.provider = {};
+payload.pl_bfj = JSON.stringify(payload);
+payload.pl_ltmedata = lotameInfo;
+payload.pl_ltmedata = JSON.stringify(lotameInfo);
+payload['anxi'] = JSUtil.defaultVal(_AnemoneParams2.eventId, '');
+_Anemone.logEvent('BackFill', payload);
+}
+}, 0);
+}
+/**
+* Read the lotame cookie
+* If lotame cookie not exist then make a request for the Lotame Audience Extraction async call
+* Drop the lotame cookie
+* Trigger the backfill with lotame params
+* @param e
+* @param t
+* @param id
+*/
+var lotame_getScript = function (e, t, id) {
+var n = document.getElementsByTagName("head")[0], r = !1, i = document.createElement("script");
+i.src = e, i.async = true, i.id = id || "", i.onload = i.onreadystatechange = function () {
+!r && (!this.readyState || this.readyState === "loaded" || this.readyState === "complete") && (r = !0, typeof t == "function" && t())
+}, n.appendChild(i)
+};
+lotame_getScript("//ad.crwdcntrl.net/5/c=4736/pe=y/var=ccauds", function () {
+var lpid = (typeof(ccauds.Profile.pid) != 'undefined') ? ccauds.Profile.pid : "",
+ltpid = (typeof(ccauds.Profile.tpid) != 'undefined') ? ccauds.Profile.tpid : "", cid = "LOTCC_4737";
+if (lpid && ltpid ) {
+var lotameInfo = {};
+lotameInfo.profileId = lpid;
+lotameInfo.tempProfileId = ltpid;
+lotameInfo.clientId = cid;
+var cookieValue = lotameInfo.profileId +'|'+lotameInfo.tempProfileId ;
+var cookieProperties ={};
+cookieProperties.path = '/';
+cookieProperties.domain = '.'+location.hostname.match(/\w+\.[^\.]+$/g)[0].replace(/\:\d+/,'');
+cookieProperties.expires = 3650;
+//Setting the cookie.raw to true to avoid the encoding
+$j.cookie.raw = true;
+$j.cookie("ltme",cookieValue,cookieProperties);
+logBackfillEvent(lotameInfo);
+}
+});
+  </script>
+  <script>
+   var _comscore = _comscore || [];
+_comscore.push({c1: "2", c2: "6034776", c3: "", c4: ""});
+(function () {
+var s = document.createElement("script"), el = document.getElementsByTagName("script")[0];
+s.async = true;
+s.src = (document.location.protocol == "https:" ? "https://sb" : "http://b") + ".scorecardresearch.com/beacon.js";
+el.parentNode.insertBefore(s, el);
+})();
+  </script>
+  <noscript>
+   <img b.scorecardresearch.com="" http:="" p?c1='2&amp;c2=6034776&amp;c3=&amp;c4=&amp;c5=&amp;c6=&amp;c15=&amp;cv=2.0&amp;cj=1"' src=""/>
+  </noscript>
+  <script>
+   function lotame_getScript(e,t,id){var n=document.getElementsByTagName("head")[0],r=!1,i=document.createElement("script");i.src=e,i.async=true,i.id=id||"",i.onload=i.onreadystatechange=function(){!r&&(!this.readyState||this.readyState==="loaded"||this.readyState==="complete")&&(r=!0,typeof t=="function"&&t())},n.appendChild(i)};
+lotame_getScript("//tags.crwdcntrl.net/c/4737/cc.js?ns=_cc4737",function(){
+_cc4737.bcp();
+},"LOTCC_4737");
+  </script>
+  <script type="text/javascript">
+   var ask = ask || {},
+sp = sp || {};
+sp.gls_top = parseInt('$gslTop');
+sp.gls_bottom = parseInt('$gslBottom');
+sp.ad_count = (window['google_ads']) ? window['google_ads'].length : (sp.gls_top + sp.gls_bottom);
+ask.adsPixelTimeout = '2000';
+function initPixel(cb, cbTimeout) {
+if (typeof ask !== 'undefined' && typeof ask.CSA !== 'undefined' && typeof ask.CSA.addCSALoadCallback === "function") {
+ask.CSA.addCSALoadCallback(function() {
+cb(true);
+}, function(){
+cbTimeout();
+}, ask.adsPixelTimeout);
+} else {
+cb(false);
+}
+}
+$j(document).ready(function(){
+if (typeof ask !== 'undefined' && typeof ask.CSA !== 'undefined' && typeof ask.CSA.domReady == "function") {
+ask.CSA.domReady();
+}
+});
+  </script>
+ </body>
+</html>
