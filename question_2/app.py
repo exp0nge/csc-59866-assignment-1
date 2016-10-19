@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-from url_data import get_search_engine_content, get_ask_search_results
+from url_data import get_search_engine_content, get_ask_search_results, get_yahoo_search_results
 
 # Search query paths
 bing_search_url = "http://www.bing.com/search?q="
@@ -22,7 +22,8 @@ def query():
         # bing_data = get_search_engine_content(bing_search_url + search_query)
         # ask_data = get_search_engine_content(ask_search_url + search_query)
         # get_ask_search_results(ask_data)
-        pass
+        yahoo_data = get_search_engine_content(yahoo_search_url + search_query)
+        get_yahoo_search_results(yahoo_data)
 
 
 if __name__ == '__main__':

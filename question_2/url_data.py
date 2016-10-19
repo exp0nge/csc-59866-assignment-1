@@ -58,4 +58,15 @@ def get_ask_search_results(soup):
 
 
 def get_yahoo_search_results(soup):
-    pass
+    with open("yahoo.html", "w") as output:
+        output.write(soup.prettify(encoding='utf-8'))
+    yahoo_search = soup.find(id='bd')
+    yahoo_results = yahoo_search.find(id='results')
+    columns = yahoo_results.find(id='cols')
+    left = columns.find(id='left')
+    left_result = left.find('div')
+    main = left_result.find(id='main').find('div').find(id='web').find('ol').find_all('li')
+
+    for li in main:
+        div = li.find('div').find('div').find('div')
+        print div
