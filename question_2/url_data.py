@@ -22,7 +22,7 @@ def get_search_engine_content(url, do_write=False, path=None):
     return soup
 
 
-def get_bing_search_results(soup, samples):
+def get_bing_search_results(soup):
     """
     Returns the first x results
     :param soup: BeautifulSoup
@@ -48,8 +48,13 @@ def get_bing_search_results(soup, samples):
     for url, caption in urls, captions:
         results.append((url, caption))
 
+    return results
+
 
 def get_ask_search_results(soup):
+    urls = []
+    captions = []
+    final_results = []
     ul = soup.find_all('div', {'class':'l-mid-content hcsa'})
     results = ul[0].find('div', {'class': 'l-web-results web-results content-mid'})
     for item in results:
@@ -59,13 +64,21 @@ def get_ask_search_results(soup):
                 a = h.find('a')
                 if a is not None:
                     url = (a['href'], a.get_text())
+                    urls.append(url)
                     print url
             summary = item.find('p', {'class': 'web-result-description'})
-            if summary is not None:
-                print summary
+            captions.append(summary)
+
+    for url, caption in final_results:
+        final_results.append((url, caption))
+
+    return final_results
 
 
 def get_yahoo_search_results(soup):
+    urls = []
+    captions = []
+    final_results = []
     with open("yahoo.html", "w") as output:
         output.write(soup.prettify(encoding='utf-8'))
     yahoo_search = soup.find(id='bd')
@@ -77,6 +90,7 @@ def get_yahoo_search_results(soup):
     print len(main)
     for li in main:
         link = li.findChildren('a')[0]
-        print (link['href'], link.get_text())
+        a = (link['href'], link.get_text())
         text = li.findChildren('p')[0]
+        final_results.append((a, text))
 
